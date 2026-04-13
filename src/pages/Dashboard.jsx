@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import api from '../apiClient';
 import { TrendingUp, TrendingDown, IndianRupee } from 'lucide-react';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, BarChart, Bar, XAxis, YAxis, CartesianGrid } from 'recharts';
 
@@ -16,9 +16,9 @@ const Dashboard = () => {
     const fetchData = async () => {
       try {
         const [sumRes, trendRes, insRes] = await Promise.all([
-          axios.get('/api/analytics/summary'),
-          axios.get(`/api/analytics/trend?timeframe=${timeframe}`),
-          axios.get('/api/analytics/insights')
+          api.get('/api/analytics/summary'),
+          api.get(`/api/analytics/trend?timeframe=${timeframe}`),
+          api.get('/api/analytics/insights')
         ]);
         setSummary(sumRes.data.data);
         setTrend(trendRes.data.data);

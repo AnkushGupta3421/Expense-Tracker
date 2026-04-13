@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../apiClient';
 import toast from 'react-hot-toast';
 
 const AddExpenseModal = ({ isOpen, onClose, expenseToEdit }) => {
@@ -43,10 +43,10 @@ const AddExpenseModal = ({ isOpen, onClose, expenseToEdit }) => {
     setLoading(true);
     try {
       if (expenseToEdit) {
-        await axios.put(`/api/expenses/${expenseToEdit.id}`, formData);
+        await api.put(`/api/expenses/${expenseToEdit.id}`, formData);
         toast.success('Expense updated successfully!');
       } else {
-        await axios.post('/api/expenses', formData);
+        await api.post('/api/expenses', formData);
         toast.success('Expense added successfully!');
       }
       

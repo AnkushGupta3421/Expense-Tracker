@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../apiClient';
 import { Trash2, Edit, Filter, Plus } from 'lucide-react';
 import toast from 'react-hot-toast';
 import AddExpenseModal from '../components/AddExpenseModal';
@@ -22,7 +22,7 @@ const Expenses = () => {
         ...filters
       }).toString();
       
-      const { data } = await axios.get(`/api/expenses?${query}`);
+      const { data } = await api.get(`/api/expenses?${query}`);
       setExpenses(data.data.expenses);
       setTotalPages(data.data.pages);
     } catch (error) {
@@ -39,7 +39,7 @@ const Expenses = () => {
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this expense?')) {
       try {
-        await axios.delete(`/api/expenses/${id}`);
+        await api.delete(`/api/expenses/${id}`);
         toast.success('Expense deleted');
         fetchExpenses();
       } catch (error) {

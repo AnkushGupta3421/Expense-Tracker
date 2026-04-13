@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import api from '../apiClient';
 import { DownloadCloud, Loader2 } from 'lucide-react';
 import toast from 'react-hot-toast';
 
@@ -10,7 +10,7 @@ const Reports = () => {
   const handleExport = async () => {
     setLoading(true);
     try {
-      const { data } = await axios.get(`/api/analytics/report?timeframe=${timeframe}`);
+      const { data } = await api.get(`/api/analytics/report?timeframe=${timeframe}`);
       const expenses = data.data;
 
       if (!expenses || expenses.length === 0) {
